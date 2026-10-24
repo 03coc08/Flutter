@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'Screen/Login_page.dart';
+import 'Screen/signup_page.dart';
+import 'Screen/Messger_chat.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,10 +18,7 @@ void main() {
   );
 
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(body: SafeArea(child: MyWidget3())),
-    ),
+    MaterialApp(debugShowCheckedModeBanner: false, home: MessengerScreen()),
   );
 }
 
@@ -690,215 +690,263 @@ class MyWidget extends StatelessWidget {
   }
 }
 
-class MyWidget2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Container(width: 40, height: 30, color: Colors.red),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'nguyễn văn mạnh',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
+// class MyWidget2 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.blue,
+//       child: Card(
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//         child: Padding(
+//           padding: const EdgeInsets.all(10),
+//           child: Row(
+//             children: [
+//               Container(width: 40, height: 30, color: Colors.red),
+//               SizedBox(width: 10),
+//               Expanded(
+//                 child: Column(
+//                   mainAxisSize: MainAxisSize.min,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'nguyễn văn mạnh',
+//                       style: TextStyle(
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16,
+//                       ),
+//                     ),
 
-                    Text('hòa lạc city', style: TextStyle(fontSize: 16)),
-                  ],
-                ),
-              ),
-              Container(height: 15, width: 15, color: Colors.blue),
-              SizedBox(width: 10),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(width: 10, height: 10, color: Colors.amberAccent),
-                  Text(
-                    '4',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: const Color.fromARGB(255, 39, 38, 38),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//                     Text('hòa lạc city', style: TextStyle(fontSize: 16)),
+//                   ],
+//                 ),
+//               ),
+//               Container(height: 15, width: 15, color: Colors.blue),
+//               SizedBox(width: 10),
+//               Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: [
+//                   Container(width: 10, height: 10, color: Colors.amberAccent),
+//                   Text(
+//                     '4',
+//                     style: TextStyle(
+//                       fontSize: 15,
+//                       color: const Color.fromARGB(255, 39, 38, 38),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class MyWidget3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Icon(Icons.message),
-            Text(
-              'Messenger',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Đăng nhập để tiếp tục',
-              style: TextStyle(
-                color: const Color.fromARGB(255, 100, 101, 101),
-                fontSize: 10,
-              ),
-            ),
-            SizedBox(height: 30),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.black, width: 3),
-                ),
-                prefixIcon: Icon(Icons.account_box),
-                hintText: 'nhập tài khoàn vào đây...',
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.black, width: 3),
-                ),
-                prefixIcon: Icon(Icons.lock_outline),
-                hintText: 'nhập nhập mật khẩu vào đây...',
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                minimumSize: Size(double.infinity, 60),
-              ),
-              onPressed: () {
-                print('chán thí nhờ');
-              },
-              child: const Text('Đăng nhập'),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Quên mật khẩu?',
-              style: TextStyle(
-                color: const Color.fromARGB(255, 90, 89, 89),
-                fontSize: 15,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              '---------------------hoặc--------------------',
-              style: TextStyle(
-                color: const Color.fromARGB(255, 88, 87, 87),
-                fontSize: 12,
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 243, 244, 245),
-                foregroundColor: Colors.black,
-                minimumSize: Size(double.infinity, 60),
-              ),
-              onPressed: () {
-                print('login with gg');
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 4, 4, 4),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.g_mobiledata_outlined,
-                      size: 40,
-                      color: Color.fromARGB(255, 27, 27, 27),
-                    ),
-                    SizedBox(width: 30),
-                    Text(
-                      'Đăng nhập bằng google',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+// class MyWidget3 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Column(
+//           children: [
+//             Icon(Icons.message),
+//             Text(
+//               'Messenger',
+//               style: TextStyle(
+//                 color: Colors.blue,
+//                 fontSize: 20,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'Đăng nhập để tiếp tục',
+//               style: TextStyle(
+//                 color: const Color.fromARGB(255, 100, 101, 101),
+//                 fontSize: 10,
+//               ),
+//             ),
+//             SizedBox(height: 30),
+//             TextField(
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   borderSide: const BorderSide(color: Colors.black, width: 3),
+//                 ),
+//                 prefixIcon: Icon(Icons.account_box),
+//                 hintText: 'nhập tài khoàn vào đây...',
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             TextField(
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   borderSide: const BorderSide(color: Colors.black, width: 3),
+//                 ),
+//                 prefixIcon: Icon(Icons.lock_outline),
+//                 hintText: 'nhập nhập mật khẩu vào đây...',
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Colors.blue,
+//                 foregroundColor: Colors.white,
+//                 minimumSize: Size(double.infinity, 60),
+//               ),
+//               onPressed: () {
+//                 print('chán thí nhờ');
+//               },
+//               child: const Text('Đăng nhập'),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'Quên mật khẩu?',
+//               style: TextStyle(
+//                 color: const Color.fromARGB(255, 90, 89, 89),
+//                 fontSize: 15,
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               '---------------------hoặc--------------------',
+//               style: TextStyle(
+//                 color: const Color.fromARGB(255, 88, 87, 87),
+//                 fontSize: 12,
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: const Color.fromARGB(255, 243, 244, 245),
+//                 foregroundColor: Colors.black,
+//                 minimumSize: Size(double.infinity, 60),
+//               ),
+//               onPressed: () {
+//                 print('login with gg');
+//               },
+//               child: Padding(
+//                 padding: const EdgeInsets.fromLTRB(30, 4, 4, 4),
+//                 child: Row(
+//                   children: [
+//                     Icon(
+//                       Icons.g_mobiledata_outlined,
+//                       size: 40,
+//                       color: Color.fromARGB(255, 27, 27, 27),
+//                     ),
+//                     SizedBox(width: 30),
+//                     Text(
+//                       'Đăng nhập bằng google',
+//                       style: TextStyle(
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
 
-            SizedBox(height: 10),
+//             SizedBox(height: 10),
 
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 243, 244, 245),
-                foregroundColor: Colors.black,
-                minimumSize: Size(double.infinity, 60),
-              ),
-              onPressed: () {
-                print('login with apple');
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 4, 4, 4),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.apple,
-                      size: 40,
-                      color: Color.fromARGB(255, 33, 34, 34),
-                    ),
-                    SizedBox(width: 30),
-                    Text(
-                      'Đăng nhập bằng Apple',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Chưa có tài khoản?'),
-                Text(
-                  'đăng ký',
-                  style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: const Color.fromARGB(255, 243, 244, 245),
+//                 foregroundColor: Colors.black,
+//                 minimumSize: Size(double.infinity, 60),
+//               ),
+//               onPressed: () {
+//                 print('login with apple');
+//               },
+//               child: Padding(
+//                 padding: const EdgeInsets.fromLTRB(30, 4, 4, 4),
+//                 child: Row(
+//                   children: [
+//                     Icon(
+//                       Icons.apple,
+//                       size: 40,
+//                       color: Color.fromARGB(255, 33, 34, 34),
+//                     ),
+//                     SizedBox(width: 30),
+//                     Text(
+//                       'Đăng nhập bằng Apple',
+//                       style: TextStyle(
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 50),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Text('Chưa có tài khoản?'),
+//                 Text(
+//                   'đăng ký',
+//                   style: TextStyle(
+//                     color: Colors.blueAccent,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class MyWidget4 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.all(1),
+//           child: Row(
+//             children: [
+//               Icon(Icons.arrow_back_ios_new),
+//               SizedBox(width: 25),
+//               CircleAvatar(backgroundColor: Colors.blue, radius: 22),
+//               SizedBox(width: 10),
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'Bùi Thắm ',
+//                       style: TextStyle(
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16,
+//                       ),
+//                     ),
+//                     Text('đang hoạt động', style: TextStyle(fontSize: 13)),
+//                   ],
+//                 ),
+//               ),
+//               Icon(
+//                 Icons.call,
+//                 size: 30,
+//                 color: const Color.fromARGB(255, 16, 132, 199),
+//               ),
+//               SizedBox(width: 10),
+//               Icon(
+//                 Icons.video_call,
+//                 size: 30,
+//                 color: const Color.fromARGB(255, 16, 132, 199),
+//               ),
+//               SizedBox(width: 10),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
