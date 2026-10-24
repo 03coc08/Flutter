@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+## Messenger Chats
+
+![Messenger Chats screen](docs/images/messenger-chats.png)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
