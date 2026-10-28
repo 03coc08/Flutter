@@ -1,9 +1,17 @@
 # flutter_application_2
 A new Flutter project.
 
-## Messenger Chats
+## Screenshots
 
-![Messenger Chats screen](docs/images/messenger-chats.png)
+<p align="center">
+  <img src="docs/images/login.png" alt="Login screen" width="240" />
+  <img src="docs/images/messenger-chats.png" alt="Messenger Chats screen" width="240" />
+</p>
+
+<p align="center">
+  <img src="docs/images/people.png" alt="People screen" width="240" />
+  <img src="docs/images/chat-detail.png" alt="Chat Detail screen" width="240" />
+</p>
 
 ## Getting Started
 
