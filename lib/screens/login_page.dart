@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'forgot_password_page.dart';
-import 'messenger_screen.dart';
-import 'signup_page.dart';
+import 'package:flutter_application_2/screens/forgot_password_page.dart';
+import 'package:flutter_application_2/screens/messenger_screen.dart';
+import 'package:flutter_application_2/screens/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
