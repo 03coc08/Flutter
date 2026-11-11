@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_application_2/services/mattermost_api.dart';
 import 'package:flutter_application_2/screens/forgot_password_page.dart';
 import 'package:flutter_application_2/screens/messenger_screen.dart';
 import 'package:flutter_application_2/screens/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
-  static const demoEmail = 'admin@gmail.com';
-  static const demoPassword = '123456';
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -17,7 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  final _api = MattermostApi(baseUrl: 'http://localhost:8065');
+  bool _isLoggingIn = false;
   @override
   void dispose() {
     _emailController.dispose();
@@ -25,25 +22,42 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _login() {
+  Future<void> _login() async {
+    if (_isLoggingIn) return;
+
     FocusScope.of(context).unfocus();
 
-    final isValid =
-        _emailController.text.trim() == LoginPage.demoEmail &&
-        _passwordController.text == LoginPage.demoPassword;
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
 
-    if (!isValid) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(content: Text('Email hoặc mật khẩu không chính xác.')),
-        );
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Hãy nhập email và mật khẩu.')),
+      );
       return;
     }
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute<void>(builder: (_) => const MessengerScreen()),
-    );
+    setState(() => _isLoggingIn = true);
+
+    try {
+      final session = await _api.login(email, password);
+
+      if (!mounted) return;
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(
+          builder: (_) => MessengerScreen(session: session, api: _api),
+        ),
+      );
+    } on MattermostException catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(e.message)));
+    } finally {
+      if (mounted) setState(() => _isLoggingIn = false);
+    }
   }
 
   @override

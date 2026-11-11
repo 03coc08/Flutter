@@ -4,9 +4,14 @@ import 'package:flutter_application_2/theme/app_theme.dart';
 import 'package:flutter_application_2/screens/chats_page.dart';
 import 'package:flutter_application_2/screens/discover_page.dart';
 import 'package:flutter_application_2/screens/people_screen.dart';
+import 'package:flutter_application_2/models/session.dart';
+import 'package:flutter_application_2/services/mattermost_api.dart';
 
 class MessengerScreen extends StatefulWidget {
-  const MessengerScreen({super.key});
+  const MessengerScreen({super.key, required this.session, required this.api});
+
+  final Session session;
+  final MattermostApi api;
 
   @override
   State<MessengerScreen> createState() => _MessengerScreenState();
