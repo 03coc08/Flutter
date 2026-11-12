@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_2/core/config/env.dart';
 import 'package:flutter_application_2/screens/login_page.dart';
 import 'package:flutter_application_2/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Env.validate(); // báo lỗi sớm nếu quên truyền file env
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/core/network/api_exception.dart';
 import 'package:flutter_application_2/services/mattermost_api.dart';
 import 'package:flutter_application_2/screens/forgot_password_page.dart';
 import 'package:flutter_application_2/screens/messenger_screen.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_application_2/screens/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -13,7 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _api = MattermostApi(baseUrl: 'http://localhost:8065');
+  final _api = mattermostApi;
+
   bool _isLoggingIn = false;
   @override
   void dispose() {
@@ -36,25 +39,21 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
-
     setState(() => _isLoggingIn = true);
-
     try {
       final session = await _api.login(email, password);
 
       if (!mounted) return;
-
       Navigator.of(context).pushReplacement(
         MaterialPageRoute<void>(
           builder: (_) => MessengerScreen(session: session, api: _api),
         ),
       );
-    } on MattermostException catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(content: Text(e.message)));
+    } on ApiException catch (e) {
+      _showError(e.message);
+    } catch (e, stack) {
+      debugPrint('Lỗi khác: $e\n$stack');
+      _showError('Lỗi không xác định: $e');
     } finally {
       if (mounted) setState(() => _isLoggingIn = false);
     }
@@ -122,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
+                      // nhập email
                       TextField(
                         key: const Key('emailField'),
                         controller: _emailController,
@@ -141,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      // nhập passwword
                       TextField(
                         key: const Key('passwordField'),
                         controller: _passwordController,
@@ -202,6 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                // nút login
                 SizedBox(
                   width: double.infinity,
                   height: 60,
@@ -215,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: _login,
+                    onPressed: _isLoggingIn ? null : _login,
                     child: const Text(
                       'Login',
                       style: TextStyle(
@@ -285,6 +287,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  //
+  void _showError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red, // nền đỏ cho dễ nhận ra lỗi
+          behavior: SnackBarBehavior.floating, // nổi lên, bo góc
+          duration: const Duration(seconds: 5),
+          action: SnackBarAction(
+            label: 'Đóng',
+            textColor: Colors.white,
+            onPressed: () {},
+          ),
+        ),
+      );
   }
 }
 
