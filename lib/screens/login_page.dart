@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-
-import 'forgot_password_page.dart';
-import 'messenger_screen.dart';
-import 'signup_page.dart';
+import 'package:messenger_app/core/network/api_exception.dart';
+import 'package:messenger_app/services/mattermost_api.dart';
+import 'package:messenger_app/screens/forgot_password_page.dart';
+import 'package:messenger_app/screens/messenger_screen.dart';
+import 'package:messenger_app/screens/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
-  static const demoEmail = 'admin@gmail.com';
-  static const demoPassword = '123456';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -17,7 +15,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _api = mattermostApi;
 
+  bool _isLoggingIn = false;
   @override
   void dispose() {
     _emailController.dispose();
@@ -25,25 +25,37 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _login() {
+  Future<void> _login() async {
+    if (_isLoggingIn) return;
     FocusScope.of(context).unfocus();
 
-    final isValid =
-        _emailController.text.trim() == LoginPage.demoEmail &&
-        _passwordController.text == LoginPage.demoPassword;
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
 
-    if (!isValid) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(content: Text('Email hoặc mật khẩu không chính xác.')),
-        );
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Hãy nhập email và mật khẩu.')),
+      );
       return;
     }
+    setState(() => _isLoggingIn = true);
+    try {
+      final session = await _api.login(email, password);
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute<void>(builder: (_) => const MessengerScreen()),
-    );
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(
+          builder: (_) => MessengerScreen(session: session, api: _api),
+        ),
+      );
+    } on ApiException catch (e) {
+      _showError(e.message);
+    } catch (e, stack) {
+      debugPrint('Lỗi khác: $e\n$stack');
+      _showError('Lỗi không xác định: $e');
+    } finally {
+      if (mounted) setState(() => _isLoggingIn = false);
+    }
   }
 
   @override
@@ -108,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
+                      // nhập email
                       TextField(
                         key: const Key('emailField'),
                         controller: _emailController,
@@ -127,6 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      // nhập passwword
                       TextField(
                         key: const Key('passwordField'),
                         controller: _passwordController,
@@ -188,6 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                // nút login
                 SizedBox(
                   width: double.infinity,
                   height: 60,
@@ -201,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: _login,
+                    onPressed: _isLoggingIn ? null : _login,
                     child: const Text(
                       'Login',
                       style: TextStyle(
@@ -271,6 +286,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  //
+  void _showError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red, // nền đỏ cho dễ nhận ra lỗi
+          behavior: SnackBarBehavior.floating, // nổi lên, bo góc
+          duration: const Duration(seconds: 5),
+          action: SnackBarAction(
+            label: 'Đóng',
+            textColor: Colors.white,
+            onPressed: () {},
+          ),
+        ),
+      );
   }
 }
 
