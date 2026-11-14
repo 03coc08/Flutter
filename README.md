@@ -1,4 +1,4 @@
-# flutter_application_2
+# messenger_app
 A new Flutter project.
 ## Screenshots
 

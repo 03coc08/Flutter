@@ -1,4 +1,4 @@
-class Post {
+class ChatMessage {
   final String id;
   final String channelId;
   final String userId;
@@ -6,7 +6,7 @@ class Post {
   final String type;
   final int createAt;
 
-  Post({
+  ChatMessage({
     required this.id,
     required this.channelId,
     required this.userId,
@@ -15,8 +15,8 @@ class Post {
     required this.createAt,
   });
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    return ChatMessage(
       id: json['id'],
       channelId: json['channel_id'],
       userId: json['user_id'],
@@ -26,13 +26,13 @@ class Post {
     );
   }
 
-  static List<Post> fromPostList(Map<String, dynamic> json) {
+  static List<ChatMessage> fromPostList(Map<String, dynamic> json) {
     final List order = json['order'];
     final Map posts = json['posts'];
 
-    final result = <Post>[];
+    final result = <ChatMessage>[];
     for (final id in order) {
-      result.add(Post.fromJson(posts[id]));
+      result.add(ChatMessage.fromJson(posts[id]));
     }
     return result;
   }

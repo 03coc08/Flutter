@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/theme/app_colors.dart';
+import 'package:messenger_app/theme/app_colors.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({

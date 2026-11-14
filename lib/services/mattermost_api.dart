@@ -2,6 +2,7 @@ import '../core/config/env.dart';
 import '../core/network/api_client.dart';
 import '../core/network/api_exception.dart';
 import '../models/session.dart';
+import '../core/network/api_response_handler.dart';
 
 class MattermostApi {
   MattermostApi(this._client);

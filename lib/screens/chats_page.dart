@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/theme/app_colors.dart';
-import 'package:flutter_application_2/widgets/round_icon_button.dart';
-import 'package:flutter_application_2/widgets/search_field.dart';
-import 'package:flutter_application_2/widgets/user_avatar.dart';
-import 'package:flutter_application_2/models/chat_item.dart';
-import 'package:flutter_application_2/models/story.dart';
-import 'package:flutter_application_2/screens/chat_detail_screen.dart';
+import 'package:messenger_app/theme/app_colors.dart';
+import 'package:messenger_app/widgets/round_icon_button.dart';
+import 'package:messenger_app/widgets/search_field.dart';
+import 'package:messenger_app/widgets/user_avatar.dart';
+import 'package:messenger_app/models/chat_item.dart';
+import 'package:messenger_app/models/story.dart';
+import 'package:messenger_app/screens/chat_detail_screen.dart';
 
 class ChatsPage extends StatelessWidget {
   const ChatsPage({super.key});

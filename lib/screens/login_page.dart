@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/core/network/api_exception.dart';
-import 'package:flutter_application_2/services/mattermost_api.dart';
-import 'package:flutter_application_2/screens/forgot_password_page.dart';
-import 'package:flutter_application_2/screens/messenger_screen.dart';
-import 'package:flutter_application_2/screens/signup_page.dart';
+import 'package:messenger_app/core/network/api_exception.dart';
+import 'package:messenger_app/services/mattermost_api.dart';
+import 'package:messenger_app/screens/forgot_password_page.dart';
+import 'package:messenger_app/screens/messenger_screen.dart';
+import 'package:messenger_app/screens/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _login() async {
     if (_isLoggingIn) return;
-
     FocusScope.of(context).unfocus();
 
     final email = _emailController.text.trim();

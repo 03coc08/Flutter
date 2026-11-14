@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/screens/chat_detail_screen.dart';
+import 'package:messenger_app/screens/chat_detail_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

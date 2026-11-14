@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/widgets/search_field.dart';
-import 'package:flutter_application_2/widgets/community_card.dart';
+import 'package:messenger_app/widgets/search_field.dart';
+import 'package:messenger_app/widgets/community_card.dart';
 
 class DiscoverPage extends StatelessWidget {
   const DiscoverPage({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/theme/app_colors.dart';
-import 'package:flutter_application_2/theme/app_theme.dart';
-import 'package:flutter_application_2/screens/chats_page.dart';
-import 'package:flutter_application_2/screens/discover_page.dart';
-import 'package:flutter_application_2/screens/people_screen.dart';
-import 'package:flutter_application_2/models/session.dart';
-import 'package:flutter_application_2/services/mattermost_api.dart';
+import 'package:messenger_app/theme/app_colors.dart';
+import 'package:messenger_app/theme/app_theme.dart';
+import 'package:messenger_app/screens/chats_page.dart';
+import 'package:messenger_app/screens/discover_page.dart';
+import 'package:messenger_app/screens/people_screen.dart';
+import 'package:messenger_app/models/session.dart';
+import 'package:messenger_app/services/mattermost_api.dart';
 
 class MessengerScreen extends StatefulWidget {
   const MessengerScreen({super.key, required this.session, required this.api});
